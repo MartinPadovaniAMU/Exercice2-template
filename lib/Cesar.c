@@ -14,12 +14,15 @@ char* chiffre_Cesar(
             c0 = 'a';
         else if(isupper(clair[i]))
             c0 = 'A';
-        
-        clair[i] = clair[i] - c0; // On convertit le caractère en nombre ordinal (position dans l'alphabet)
-        clair[i] = clair[i] + (cle - c0); // On chiffre (il faut également convertir la clé)
-        clair[i] = clair[i] % 26; // Si la lettre est à la fin de l'alphabet, on revient au début
-        clair[i] = clair[i] + c0; // On reconvertit en lettre
+        if(c0) // Si l'objet est une lettre
+        {
+            clair[i] = clair[i] - c0; // On convertit le caractère en nombre ordinal (position dans l'alphabet)
+            clair[i] = clair[i] + (cle - 'a'); // On chiffre (il faut également convertir la clé)
+            clair[i] = clair[i] % 26; // Si la lettre est à la fin de l'alphabet, on revient au début
+            clair[i] = clair[i] + c0; // On reconvertit en lettre
+        }
         i++;
+        c0 = '\0';
     }
     return clair;
 }
