@@ -67,7 +67,17 @@ void chiffre_Vigenere_flux_texte(
     FILE* clair,        // Flux d'entrée.
     char const* cle)
 {
-    return;
+    char buffer[1000]; // Taille arbitraire, convient largement pour notre exemple
+    char* text = malloc(1*sizeof(char));
+    int taille_derniere_ligne = 0;
+    while(fgets(buffer, 1000, clair))
+    {
+        text = realloc(text, (strlen(buffer) + taille_derniere_ligne + 1)*sizeof(char)); // Augmente la taille du texte au fur et à mesure de la lecture
+        text[strlen(buffer) + taille_derniere_ligne] = '\0';
+        strcpy(text + taille_derniere_ligne, buffer); // On copie la nouvelle ligne après les autres
+        taille_derniere_ligne = taille_derniere_ligne + strlen(buffer);
+    }
+    fputs(chiffre_Vigenere(text, cle), chiffre);
 }
 
 void dechiffre_Vigenere_flux_texte(
@@ -75,5 +85,15 @@ void dechiffre_Vigenere_flux_texte(
     FILE* chiffre,      // Flux d'entrée.
     char const* cle)
 {
-    return;
+    char buffer[1000]; // Taille arbitraire, convient largement pour notre exemple
+    char* text = malloc(1*sizeof(char));
+    int taille_derniere_ligne = 0;
+    while(fgets(buffer, 1000, chiffre))
+    {
+        text = realloc(text, (strlen(buffer) + taille_derniere_ligne + 1)*sizeof(char)); // Augmente la taille du texte au fur et à mesure de la lecture
+        text[strlen(buffer) + taille_derniere_ligne] = '\0';
+        strcpy(text + taille_derniere_ligne, buffer); // On copie la nouvelle ligne après les autres
+        taille_derniere_ligne = taille_derniere_ligne + strlen(buffer);
+    }
+    fputs(dechiffre_Vigenere(text, cle), clair);
 }
