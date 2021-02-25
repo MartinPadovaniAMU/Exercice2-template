@@ -26,8 +26,8 @@ build/Cesar.o: lib/Cesar.c lib/Cesar.h | build
 build/Vigenere.o: lib/Vigenere.c lib/Vigenere.h | build
 	gcc -Wall -Werror -pedantic --debug -c lib/Vigenere.c -I ./lib -o build/Vigenere.o
 
-build/libchiffrage.a: lib/chiffrage.h build/ROT13.o | build
-	ar crs build/libchiffrage.a build/ROT13.o
+build/libchiffrage.a: lib/chiffrage.h build/ROT13.o build/Cesar.o build/Vigenere.o | build
+	ar crs build/libchiffrage.a build/ROT13.o build/Cesar.o build/Vigenere.o
 
 
 # Programme de test. Trois cibles : une pour compiler le code de test en fichier 
